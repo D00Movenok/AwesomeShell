@@ -12,18 +12,6 @@ install_dependencies() {
 
     packages=""
 
-    if ! command_exists zsh && [ "$CONFIGURE_ZSH" = "yes" ]; then
-        echo "ZSH is not installed!"
-        packages="$packages zsh"
-        req_install=1
-    fi
-
-    if ! command_exists vim && [ "$CONFIGURE_VIM" = "yes" ]; then
-        echo "VIM is not installed!"
-        packages="$packages vim"
-        req_install=1
-    fi
-
     if ! command_exists curl; then
         echo "CURL is not installed!"
         packages="$packages curl"
@@ -33,6 +21,22 @@ install_dependencies() {
     if ! command_exists git; then
         echo "GIT is not installed!"
         packages="$packages git"
+        req_install=1
+    fi
+
+    if [ "$CONFIGURE_VIM" = "yes" ]; then
+        packages="$packages vim-gtk"
+        req_install=1
+    fi
+
+    if [ "$CONFIGURE_VIM" = "yes" ]; then
+        packages="$packages exuberant-ctags"
+        req_install=1
+    fi
+
+    if ! command_exists zsh && [ "$CONFIGURE_ZSH" = "yes" ]; then
+        echo "ZSH is not installed!"
+        packages="$packages zsh"
         req_install=1
     fi
 
@@ -48,13 +52,20 @@ install_dependencies() {
         req_install=1
     fi
 
-    if [ "$CONFIGURE_VIM" = "yes" ]; then
-        packages="$packages exuberant-ctags"
+    if ! command_exists tree && [ "$CONFIGURE_ZSH" = "yes" ]; then
+        packages="$packages tree"
         req_install=1
     fi
 
-    if ! command_exists tree && [ "$CONFIGURE_ZSH" = "yes" ]; then
-        packages="$packages tree"
+    if ! command_exists tmux && [ "$CONFIGURE_TMUX" = "yes" ]; then
+        echo "TMUX is not installed!"
+        packages="$packages tmux"
+        req_install=1
+    fi
+
+    if ! command_exists powerline && [ "$CONFIGURE_TMUX" = "yes" ]; then
+        echo "POWERLINE is not installed!"
+        packages="$packages powerline"
         req_install=1
     fi
 
@@ -175,11 +186,19 @@ configure_vim() {
             echo "Can't curl vim-plug"
             exit 1
         }
-     curl -fLo $HOME/.vimrc https://raw.githubusercontent.com/D00Movenok/AwesomeShell/main/dotfiles/.vimrc
+    curl -fLo $HOME/.vimrc https://raw.githubusercontent.com/D00Movenok/AwesomeShell/main/dotfiles/.vimrc
     # dirty trick to skip "Press ENTER blah-blah"
     echo "" | vim +PlugInstall +qall
 
     echo "VIM configured successfully!"
+}
+
+configure_tmux() {
+    echo "Configuring TMUX:"
+
+    curl -fLo $HOME/.tmux.conf https://raw.githubusercontent.com/D00Movenok/AwesomeShell/main/dotfiles/.tmux.conf
+
+    echo "TMUX configured successfully!"
 }
 
 main() {
@@ -191,14 +210,18 @@ main() {
             -v)
                 CONFIGURE_VIM=yes
             ;;
+            -t)
+                CONFIGURE_TMUX=yes
+            ;;
         esac
         shift
     done
 
-    if [ "$CONFIGURE_ZSH" = "no" ] && [ "$CONFIGURE_VIM" = "no" ]; then
+    if [ "$CONFIGURE_ZSH" = "no" ] && [ "$CONFIGURE_VIM" = "no" ] && [ "$CONFIGURE_TMUX" = "no" ]; then
         echo "Default value: vim and zsh will be configured..."
         CONFIGURE_ZSH=yes
         CONFIGURE_VIM=yes
+        CONFIGURE_TMUX=yes
     fi
 
     install_dependencies
@@ -209,6 +232,10 @@ main() {
 
     if [ "$CONFIGURE_ZSH" = "yes" ]; then
         configure_zsh
+    fi
+
+    if [ "$CONFIGURE_TMUX" = "yes" ]; then
+        configure_tmux
     fi
 }
 

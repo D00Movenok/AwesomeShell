@@ -1,6 +1,6 @@
 # AwesomeShell
 
-💫 AwesomeShell install my [.zshrc](dotfiles/.zshrc) and [.vimrc](dotfiles/.vimrc) with [plugins and themes](#plugins--themes) and [aditional utilities with zsh installation](#aditional-utilities-with-zsh-install)
+💫 AwesomeShell install my [.zshrc](dotfiles/.zshrc), [.vimrc](dotfiles/.vimrc) and [.tmux.conf](dotfiles/.tmux.conf) with [plugins and themes](#plugins--themes) and [aditional utilities with zsh installation](#aditional-utilities-with-zsh-installation)
 
 ## Screenshots
 
@@ -12,11 +12,15 @@ VIM:
 
 ![vim screenshot](screenshots/vim.png)
 
+TMUX:
+
+![tmux screenshot](screenshots/tmux.png)
+
 ## Installation
 
 **Warning:** this script use `apt` package manager, so only debian-based distributions supported
 
-By default it will install and configure both zsh and vim:
+By default it will install and configure zsh, vim: and tmux
 
 ```sh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/D00Movenok/AwesomeShell/main/awesomeshell.sh)"
@@ -26,6 +30,7 @@ Installation can be configured by arguments or env variables:
 
 * `CONFIGURE_ZSH=yes` or `-z`: install and configure zsh
 * `CONFIGURE_VIM=yes` or `-v`: install and configure vim
+* `CONFIGURE_TMUX=yes` or `-t`: install and configure tmux
 
 ## Plugins & themes
 
@@ -45,11 +50,15 @@ VIM:
 * [jiangmiao/auto-pairs](https://github.com/jiangmiao/auto-pairs) - insert or delete brackets, parens, quotes in pair
 * [majutsushi/tagbar](https://github.com/majutsushi/tagbar) - class and project outline viewer
 * [python-mode/python-mode](https://github.com/python-mode/python-mode) - python autocomplete
-* [powerline/powerline](https://github.com/powerline/powerline) - powerline for vim
+* [powerline/powerline](https://github.com/powerline/powerline) - powerline for vim, tmux, etc.
 * [rosenfeld/conque-term](https://github.com/rosenfeld/conque-term) - terminal split in vim
 * [mitsuhiko/vim-jinja](https://github.com/mitsuhiko/vim-jinja) - jinja for Vim
 * [kien/ctrlp.vim](https://github.com/kien/ctrlp.vim) - fuzzy file, buffer, mru, tag, ... finder
 * [tomasr/molokai](https://github.com/tomasr/molokai) - theme
+
+TMUX:
+
+* [powerline/powerline](https://github.com/powerline/powerline) - powerline for vim, tmux, etc.
 
 ## Custom hotkeys
 
@@ -64,7 +73,7 @@ ZSH
 
 * \<?> - Open or hide fzf preview
 
-## Aditional utilities with zsh install
+## Aditional utilities with zsh installation
 
 * [BAT](https://github.com/sharkdp/bat) - cat with syntax highlight
 * [FZF](https://github.com/junegunn/fzf) - fuzzy finder

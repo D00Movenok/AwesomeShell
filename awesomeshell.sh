@@ -2,6 +2,7 @@
 
 CONFIGURE_ZSH=${CONFIGURE_ZSH:-no}
 CONFIGURE_VIM=${CONFIGURE_VIM:-no}
+CONFIGURE_TMUX=${CONFIGURE_TMUX:-no}
 
 command_exists() {
 	command -v "$@" >/dev/null 2>&1

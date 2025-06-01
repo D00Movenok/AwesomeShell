@@ -1,0 +1,12 @@
+Host *
+    # Store keys in ssh-agent on first use
+    AddKeysToAgent yes
+
+    # Master sessions for ssh
+    ControlPath ~/.ssh/controlmasters/%r@%h:%p
+    ControlMaster auto
+    ControlPersist 10m
+
+    # Closes connect after 3*30s without response
+    ServerAliveInterval 30
+    ServerAliveCountMax 3
